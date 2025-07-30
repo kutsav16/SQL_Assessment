@@ -1,0 +1,62 @@
+-- create db
+create database assessment;
+
+-- use db
+use assessment;
+
+-- salesman table create
+create table salesman (
+    salesman_id integer primary key auto_increment,
+    name varchar(50),
+    city varchar(50),
+    commission decimal(5,2)
+);
+
+-- customer table create
+create table customer (
+    customer_id integer primary key auto_increment,
+    customer_name varchar(50),
+    city varchar(50),
+    grade integer,
+    salesman_id integer,
+    foreign key (salesman_id) references salesman (salesman_id)
+);
+
+-- salesman data
+insert into salesman (salesman_id, name, city, commission) values
+(5001, 'james hoog', 'new york', 0.15),
+(5002, 'nail knite', 'paris', 0.13),
+(5005, 'pit alex', 'london', 0.11),
+(5006, 'mc lyon', 'paris', 0.14),
+(5007, 'paul adam', 'rome', 0.13),
+(5003, 'lauson hen', 'san jose', 0.12);
+
+-- customer data
+insert into customer (customer_id, customer_name, city, grade, salesman_id) values
+(3002, 'nick rimando', 'new york', 100, 5001),
+(3007, 'brad davis', 'new york', 200, 5001),
+(3005, 'graham zusi', 'california', 200, 5002),
+(3008, 'julian green', 'london', 300, 5002),
+(3004, 'fabian johnson', 'paris', 300, 5006),
+(3009, 'geoff cameron', 'berlin', 100, 5003),
+(3003, 'jozy altidore', 'moscow', 200, 5007),
+(3001, 'brad guzan', 'london', null, 5005);
+
+-- show salesman
+select * from salesman;
+
+-- show customer
+select * from customer;
+
+-- join customer with salesman
+select
+    customer.customer_name as customername,
+    customer.city as customercity,
+    salesman.name as salesmanname,
+    salesman.commission as salesmancommission
+from
+    customer
+join
+    salesman
+on
+    customer.salesman_id = salesman.salesman_id;
